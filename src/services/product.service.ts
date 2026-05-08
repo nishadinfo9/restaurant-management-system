@@ -39,11 +39,15 @@ export const createProductIntoDB = async (payload: CreateProductDTO) => {
 export const getProductsFromDB = async (page = 1, limit = 10) => {
   const skip = (page - 1) * limit;
 
-  const [products, total] = await Promise.all([
-    ProductModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit),
+  const productsPromise = ProductModel.find()
+    .populate("categoryId", "name")
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
 
-    ProductModel.countDocuments(),
-  ]);
+  const totalPromise = ProductModel.countDocuments();
+
+  const [products, total] = await Promise.all([productsPromise, totalPromise]);
 
   return {
     products,
@@ -51,4 +55,49 @@ export const getProductsFromDB = async (page = 1, limit = 10) => {
     page,
     totalPages: Math.ceil(total / limit),
   };
+};
+
+export const getProductByIdFromDB = async (id: string) => {
+  const product = await ProductModel.findById(id);
+
+  if (!product) {
+    throw new ApiError(404, "Product not found");
+  }
+
+  return product;
+};
+
+export const getProductBySlugFromDB = async (slug: string) => {
+  const product = await ProductModel.findOne({ slug });
+
+  if (!product) {
+    throw new ApiError(404, "Product not found");
+  }
+
+  return product;
+};
+
+export const updateProductInDB = async (
+  id: string,
+  payload: Partial<CreateProductDTO>,
+) => {
+  const product = await ProductModel.findByIdAndUpdate(id, payload, {
+    new: true,
+  });
+
+  if (!product) {
+    throw new ApiError(404, "Product not found");
+  }
+
+  return product;
+};
+
+export const deleteProductFromDB = async (id: string) => {
+  const product = await ProductModel.findByIdAndDelete(id);
+
+  if (!product) {
+    throw new ApiError(404, "Product not found");
+  }
+
+  return product;
 };
