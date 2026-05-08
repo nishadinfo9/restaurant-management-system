@@ -40,6 +40,7 @@ export async function GET() {
 
     return NextResponse.json(
       new ApiResponse("Internal server error", undefined, 500),
+      { status: 500 },
     );
   }
 }
