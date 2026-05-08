@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface Product extends Document {
   title: string;
@@ -41,7 +41,7 @@ export const ProductSchema = new mongoose.Schema<Product>(
       type: Number,
     },
     categoryId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Category",
       required: [true, "Category is required"],
     },
