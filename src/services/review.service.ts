@@ -42,6 +42,22 @@ export const getMyReviewFromDB = async (userId: string) => {
   }
 };
 
+export const getOrderByIdFromDB = async (id: string) => {
+  try {
+    const review = await ReviewModel.findById(id);
+    if (!review) {
+      throw new ApiError(404, "review not found");
+    }
+    return review;
+  } catch (error: unknown) {
+    console.log("Failed to fetch review", (error as Error).message);
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(500, "Failed to fetch review");
+  }
+};
+
 export const updateReviewFromDB = async (
   id: string,
   payload: Partial<CreateReviewDTO>,
@@ -55,4 +71,20 @@ export const updateReviewFromDB = async (
   }
 
   return review;
+};
+
+export const deleteOrderFromDB = async (id: string) => {
+  try {
+    const review = await ReviewModel.findByIdAndDelete(id);
+    if (!review) {
+      throw new ApiError(404, "review not found");
+    }
+    return review;
+  } catch (error: unknown) {
+    console.log("Failed to delete review", (error as Error).message);
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(500, "Failed to delete review");
+  }
 };
