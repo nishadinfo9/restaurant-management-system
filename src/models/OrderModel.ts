@@ -8,13 +8,7 @@ interface Order extends Document {
   totalAmount: number;
   paymentMethod: "bank" | "bKash" | "cash_on_delivery";
   paymentStatus: "pending" | "completed" | "failed";
-  orderStatus:
-    | "pending"
-    | "confirmed"
-    | "preparing"
-    | "out_for_delivery"
-    | "delivered"
-    | "cancelled";
+  orderStatus: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   notes?: string;
   createdAt: Date;
   updatedAt: Date;
