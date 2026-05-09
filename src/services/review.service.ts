@@ -42,7 +42,7 @@ export const getMyReviewFromDB = async (userId: string) => {
   }
 };
 
-export const getOrderByIdFromDB = async (id: string) => {
+export const getReviewByIdFromDB = async (id: string) => {
   try {
     const review = await ReviewModel.findById(id);
     if (!review) {
@@ -73,7 +73,7 @@ export const updateReviewFromDB = async (
   return review;
 };
 
-export const deleteOrderFromDB = async (id: string) => {
+export const deleteReviewFromDB = async (id: string) => {
   try {
     const review = await ReviewModel.findByIdAndDelete(id);
     if (!review) {
