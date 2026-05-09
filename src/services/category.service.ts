@@ -15,8 +15,10 @@ export const createCategoryIntoDB = async (payload: CreateCategoryDTO) => {
     const category = await ProductModel.create({ ...payload, slug });
     return category;
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Failed to create category", error.message);
+    console.log("category creation error", (error as Error).message);
+
+    if (error instanceof ApiError) {
+      throw error;
     }
     throw new ApiError(500, "Failed to create category");
   }
@@ -27,8 +29,10 @@ export const getAllCategoriesFromDB = async () => {
     const categories = await ProductModel.find();
     return categories;
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Failed to fetch categories", error.message);
+    console.log("Failed to fetch categories", (error as Error).message);
+
+    if (error instanceof ApiError) {
+      throw error;
     }
     throw new ApiError(500, "Failed to fetch categories");
   }
@@ -42,12 +46,11 @@ export const getCategoryBySlugFromDB = async (slug: string) => {
     }
     return category;
   } catch (error: unknown) {
+    console.log("Failed to fetch category", (error as Error).message);
     if (error instanceof ApiError) {
       throw error; // Re-throw known API errors
     }
-    if (error instanceof Error) {
-      console.error("Failed to fetch category", error.message);
-    }
+    console.log("Failed to fetch category", (error as Error).message);
     throw new ApiError(500, "Failed to fetch category");
   }
 };
@@ -65,11 +68,10 @@ export const updateCategoryInDB = async (
     }
     return category;
   } catch (error: unknown) {
+    console.log("Failed to update category", (error as Error).message);
+
     if (error instanceof ApiError) {
-      throw error; // Re-throw known API errors
-    }
-    if (error instanceof Error) {
-      console.error("Failed to update category", error.message);
+      throw error.message; // Re-throw known API errors
     }
     throw new ApiError(500, "Failed to update category");
   }
@@ -83,11 +85,10 @@ export const deleteCategoryFromDB = async (slug: string) => {
     }
     return category;
   } catch (error: unknown) {
+    console.log("Failed to delete category", (error as Error).message);
+
     if (error instanceof ApiError) {
-      throw error; // Re-throw known API errors
-    }
-    if (error instanceof Error) {
-      console.error("Failed to delete category", error.message);
+      throw error.message; // Re-throw known API errors
     }
     throw new ApiError(500, "Failed to delete category");
   }
