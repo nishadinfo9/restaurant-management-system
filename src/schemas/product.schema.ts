@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod";
 
 export const ProductSchema = z.object({
   title: z.string().min(3).max(100),
