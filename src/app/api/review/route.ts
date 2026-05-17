@@ -7,10 +7,12 @@ import {
 } from "@/services/review.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
+import ConnectDB from "@/lib/ConnectDB";
 
 // POST REVIEW
 export async function POST(req: NextRequest) {
   try {
+      await ConnectDB()
     const body = await req.json();
     const result = ReviewSchema.safeParse(body);
 
@@ -29,6 +31,7 @@ export async function POST(req: NextRequest) {
 // GET REVIEW
 export async function GET(req: NextRequest) {
   try {
+      await ConnectDB()
     const userId = req.nextUrl.searchParams.get("userId");
     let result;
 

@@ -6,9 +6,11 @@ import {
 } from "@/services/category.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
+import ConnectDB from "@/lib/ConnectDB";
 
 // CREATE CATEGORY
 export async function POST(req: NextRequest) {
+  await ConnectDB();
   try {
     const body = await req.json();
     const result = CategorySchema.safeParse(body);
@@ -30,6 +32,7 @@ export async function POST(req: NextRequest) {
 
 // GET ALL CATEGORIES
 export async function GET() {
+  await ConnectDB();
   try {
     const categories = await getAllCategoriesFromDB();
     return NextResponse.json(

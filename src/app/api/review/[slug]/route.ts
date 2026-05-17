@@ -7,14 +7,16 @@ import {
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { ReviewSchema } from "@/schemas/review.schema";
+import ConnectDB from "@/lib/ConnectDB";
 
 // GET REVIEW BY ID
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const reviewId = params.id;
+    await ConnectDB();
+    const reviewId = (await params).slug;
     if (!reviewId) {
       throw new ApiError(400, "Review ID is required");
     }
@@ -29,10 +31,11 @@ export async function GET(
 // UPDATE REVIEW
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const { slug } = params;
+    await ConnectDB();
+    const { slug } = await params;
     const body = await request.json();
     const result = ReviewSchema.safeParse(body);
     if (!result.success) {
@@ -55,10 +58,11 @@ export async function PATCH(
 // DELETE ORDER
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const reviewId = params.id;
+    await ConnectDB();
+    const reviewId = (await params).slug;
     if (!reviewId) {
       throw new ApiError(400, "Review ID is required");
     }

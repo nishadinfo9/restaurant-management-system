@@ -6,14 +6,16 @@ import {
 } from "@/services/order.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
+import ConnectDB from "@/lib/ConnectDB";
 
 // GET ORDER BY ID
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
+  await ConnectDB();
   try {
-    const orderId = params.id;
+    const orderId = (await params).slug;
     if (!orderId) {
       throw new ApiError(400, "Order ID is required");
     }
@@ -28,10 +30,11 @@ export async function GET(
 // UPDATE ORDER STATUS
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
+  await ConnectDB();
   try {
-    const orderId = params.id;
+    const orderId = (await params).slug;
     if (!orderId) {
       throw new ApiError(400, "Order ID is required");
     }
@@ -54,10 +57,11 @@ export async function PATCH(
 // DELETE ORDER
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
+    await ConnectDB()
   try {
-    const orderId = params.id;
+    const orderId = (await params).slug;
     if (!orderId) {
       throw new ApiError(400, "Order ID is required");
     }

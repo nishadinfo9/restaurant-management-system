@@ -7,10 +7,12 @@ import {
 } from "@/services/order.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
+import ConnectDB from "@/lib/ConnectDB";
 
 // CREATE ORDER
 export async function POST(req: NextRequest) {
   try {
+    await ConnectDB();
     const body = await req.json();
     const result = OrderSchema.safeParse(body);
 
@@ -29,6 +31,7 @@ export async function POST(req: NextRequest) {
 // GET ORDERS
 export async function GET(req: NextRequest) {
   try {
+    await ConnectDB();
     const userId = req.nextUrl.searchParams.get("userId");
     let result;
 

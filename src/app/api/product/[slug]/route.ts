@@ -7,14 +7,16 @@ import {
 } from "@/services/product.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
+import ConnectDB from "@/lib/ConnectDB";
 
 // GET PRODUCT BY SLUG
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const { slug } = params;
+    await ConnectDB();
+    const { slug } = await params;
     const product = await getProductBySlugFromDB(slug);
     return NextResponse.json(
       new ApiResponse("Product fetched successfully", product, 200),
@@ -32,10 +34,11 @@ export async function GET(
 // UPDATE PRODUCT
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const { slug } = params;
+    await ConnectDB();
+    const { slug } = await params;
     const body = await request.json();
     const result = ProductSchema.safeParse(body);
     if (!result.success) {
@@ -58,10 +61,11 @@ export async function PATCH(
 // DELETE PRODUCT
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const { slug } = params;
+      await ConnectDB()
+    const { slug } = await params;
     await deleteProductFromDB(slug);
     return NextResponse.json(
       new ApiResponse("Product deleted successfully", null, 200),

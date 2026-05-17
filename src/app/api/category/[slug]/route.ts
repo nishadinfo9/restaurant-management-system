@@ -7,14 +7,16 @@ import {
 } from "@/services/category.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
+import ConnectDB from "@/lib/ConnectDB";
 
 // GET CATEGORY BY SLUG
 export async function GET(
   req: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
+  await ConnectDB();
   try {
-    const { slug } = params;
+    const { slug } = await params;
     if (!slug) {
       throw new ApiError(400, "Slug is required");
     }
@@ -31,10 +33,11 @@ export async function GET(
 // UPDATE CATEGORY
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
+  await ConnectDB();
   try {
-    const { slug } = params;
+    const { slug } = await params;
     if (!slug) {
       throw new ApiError(400, "Slug is required");
     }
@@ -57,10 +60,10 @@ export async function PATCH(
 // DELETE CATEGORY
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
     if (!slug) {
       throw new ApiError(400, "Slug is required");
     }
