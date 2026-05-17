@@ -3,6 +3,8 @@ import { Poppins, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextAuthProvider from "@/provider/NextAuthProvider";
+import Navbar from "@/components/shared/Navbar/Navbar";
+import Footer from "@/components/shared/Footer/Footer";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -34,7 +36,9 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
+        <Navbar />
         <NextAuthProvider>{children}</NextAuthProvider>
+        <Footer />
       </body>
     </html>
   );
