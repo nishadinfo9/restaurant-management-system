@@ -21,7 +21,7 @@ export default function Hero() {
       smoothWheel: true,
     });
 
-    function raf(time) {
+    function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
