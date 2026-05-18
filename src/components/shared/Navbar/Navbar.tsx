@@ -9,7 +9,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Menu", href: "#menu" },
-    { label: "Foods", href: "/products" },
+    { label: "Foods", href: "/foods" },
     { label: "Our Story", href: "#our-story" },
     { label: "Dashboard", href: "#dashboard" },
   ];
