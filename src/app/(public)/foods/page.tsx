@@ -1,35 +1,14 @@
 import FoodCard from "@/components/cards/FoodCard";
-import React from "react";
+import { products } from "@/data/product";
 
-const page = () => {
+const Page = () => {
   return (
-    <div className="mt-24 flex items-center justify-between m-10">
-      <FoodCard
-        image="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
-        name="Cheese Burger"
-        category="Fast Food"
-        price={12}
-        rating={4.8}
-        deliveryTime={20}
-      />
-      <FoodCard
-        image="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
-        name="Cheese Burger"
-        category="Fast Food"
-        price={12}
-        rating={4.8}
-        deliveryTime={20}
-      />
-      <FoodCard
-        image="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
-        name="Cheese Burger"
-        category="Fast Food"
-        price={12}
-        rating={4.8}
-        deliveryTime={20}
-      />
+    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-8 px-6 md:px-12 lg:grid-cols-3 xl:grid-cols-4">
+      {products.map((product) => (
+        <FoodCard key={product.id} product={product} />
+      ))}
     </div>
   );
 };
 
-export default page;
+export default Page;
