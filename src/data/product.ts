@@ -1,6 +1,6 @@
 export const products = [
   {
-    id: 1,
+    id: "1",
     slug: "smoked-beef-steak",
     title: "Smoked Beef Steak",
     description:
@@ -18,7 +18,7 @@ export const products = [
   },
 
   {
-    id: 2,
+    id: "2",
     slug: "italian-handmade-pasta",
     title: "Italian Handmade Pasta",
     description:
@@ -36,7 +36,7 @@ export const products = [
   },
 
   {
-    id: 3,
+    id: "3",
     slug: "luxury-chocolate-dessert",
     title: "Luxury Chocolate Dessert",
     description: "Soft chocolate dessert with modern artistic plating.",
@@ -53,7 +53,7 @@ export const products = [
   },
 
   {
-    id: 4,
+    id: "4",
     slug: "grilled-chicken-platter",
     title: "Grilled Chicken Platter",
     description: "Juicy grilled chicken served with herbs and spicy sauce.",
@@ -70,7 +70,7 @@ export const products = [
   },
 
   {
-    id: 5,
+    id: "5",
     slug: "bbq-ribs",
     title: "BBQ Ribs",
     description: "Slow-cooked BBQ ribs with smoky glaze and tender meat.",
@@ -87,7 +87,7 @@ export const products = [
   },
 
   {
-    id: 6,
+    id: "6",
     slug: "seafood-platter",
     title: "Seafood Platter",
     description: "Fresh seafood mix with lemon butter sauce.",
@@ -104,7 +104,7 @@ export const products = [
   },
 
   {
-    id: 7,
+    id: "7",
     slug: "spicy-burger",
     title: "Spicy Burger",
     description: "Juicy beef burger with spicy sauce and cheese.",
@@ -121,7 +121,7 @@ export const products = [
   },
 
   {
-    id: 8,
+    id: "8",
     slug: "cheese-pizza",
     title: "Cheese Pizza",
     description: "Classic Italian cheese pizza with fresh ingredients.",
@@ -138,7 +138,7 @@ export const products = [
   },
 
   {
-    id: 9,
+    id: "9",
     slug: "ramen-noodles",
     title: "Ramen Noodles",
     description: "Japanese ramen with rich broth and soft noodles.",
@@ -155,7 +155,7 @@ export const products = [
   },
 
   {
-    id: 10,
+    id: "10",
     slug: "fruit-salad",
     title: "Fresh Fruit Salad",
     description: "Healthy mix of seasonal fresh fruits.",
